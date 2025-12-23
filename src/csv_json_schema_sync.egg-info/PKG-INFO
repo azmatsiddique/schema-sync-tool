@@ -1,6 +1,6 @@
 Metadata-Version: 2.4
 Name: csv-json-schema-sync
-Version: 0.1.1
+Version: 0.1.2
 Summary: A tool for data engineers to manage continuously evolving CSV/JSON schemas.
 Author-email: Azmat Siddique <azmat.siddique.98@gmail.com>
 License: MIT
@@ -9,6 +9,7 @@ Requires-Python: >=3.8
 Description-Content-Type: text/markdown
 Requires-Dist: pandas
 Requires-Dist: jsonschema
+Requires-Dist: rich
 Provides-Extra: dev
 Requires-Dist: pytest; extra == "dev"
 
@@ -25,7 +26,7 @@ A CLI tool for data engineers to manage continuously evolving CSV/JSON schemas.
 ## Installation
 
 ```bash
-pip install .
+pip install csv-json-schema-sync
 ```
 
 ## Usage

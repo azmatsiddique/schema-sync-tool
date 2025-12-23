@@ -1,0 +1,3 @@
+id,join_date,email,optional
+1,2023-01-01,alice@example.com,value
+2,2023-01-02,bob@example.com,

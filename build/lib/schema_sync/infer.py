@@ -27,19 +27,37 @@ def infer_schema(data_file: str) -> dict:
     }
 
     # Map pandas dtypes to JSON schema types
-    dtype_map = {
-        'int64': 'integer',
-        'float64': 'number',
-        'bool': 'boolean',
-        'object': 'string',
-        'datetime64[ns]': 'string',  # Could be refined to format: date-time
-    }
-
     for column, dtype in df.dtypes.items():
-        schema_type = dtype_map.get(str(dtype), 'string')
-        schema["properties"][column] = {"type": schema_type}
+        schema_type = 'string' # Default
+        dtype_str = str(dtype)
         
-        # Simple heuristic: if no nulls, mark as required
+        if 'int' in dtype_str:
+            schema_type = 'integer'
+        elif 'float' in dtype_str:
+            schema_type = 'number'
+        elif 'bool' in dtype_str:
+            schema_type = 'boolean'
+            
+        schema["properties"][column] = {"type": schema_type}
+
+        # Date detection
+        if schema_type == 'string':
+            # Check if column looks like a date/datetime
+            try:
+                if pd.to_datetime(df[column], errors='coerce').notna().all():
+                     schema["properties"][column]["format"] = "date-time"
+            except:
+                pass
+            
+            # Email detection (simple heuristic)
+            try:
+                 if df[column].astype(str).str.contains(r'^[\w\.-]+@[\w\.-]+\.\w+$').all():
+                     schema["properties"][column]["format"] = "email"
+            except:
+                pass
+
+
+        # Nullability check
         if not df[column].isnull().any():
             schema["required"].append(column)
 
