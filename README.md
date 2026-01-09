@@ -1,3 +1,4 @@
+[![Buy Me a Coffee](https://img.shields.io/badge/Buy_Me_a_Coffee-FFDD00?style=flat&logo=buy-me-a-coffee&logoColor=black)](https://buymeacoffee.com/azmatsiddiz)
 # csv-json-schema-sync
 
 A CLI tool for data engineers to manage continuously evolving CSV/JSON schemas.
